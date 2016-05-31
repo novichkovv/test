@@ -30,7 +30,7 @@ class controller
                         $savings = number_format((int) str_replace(',', '', $row[5]), 0, '.', ',');
                         $msrp_nf = str_replace(',', '', $row[4]);
                         $savings_nf = str_replace(',', '', $row[5]);
-                        $csv .= '"' . $row[2] . '";"' . $brand . '";"' . $model . '";"$' . $msrp . '";"$' . $sale_price . '";"$' . $savings . '";"' . (floor($savings_nf/$msrp_nf*10000)/100) . "%\"\n";
+                        $csv .= '"' . $row[2] . '";"' . $brand . '";"' . $model . '";"$' . $msrp . '";"$' . $sale_price . '";"$' . $savings . '";"' . round((floor($savings_nf/$msrp_nf*10000)/100), 2, PHP_ROUND_HALF_DOWN) . "%\"\n";
                     }
                 }
                 header("Content-Type: application/force-download");
