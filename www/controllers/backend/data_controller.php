@@ -66,7 +66,7 @@ class data_controller extends controller
     {
         switch ($_REQUEST['action']) {
             case "get_prices":
-                echo json_encode($this->getDataTable($this->getQueryParams()));
+                echo json_encode($this->getDataTable($this->getQueryParams(), false, true));
                 exit;
                 break;
         }

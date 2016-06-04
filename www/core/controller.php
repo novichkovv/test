@@ -352,10 +352,11 @@ abstract class controller extends base
     /**
      * @param array $params
      * @param bool $print
+     * @param bool $replace
      * @return mixed
      */
 
-    public function getDataTable(array $params, $print = false)
+    public function getDataTable(array $params, $print = false, $replace = false)
     {
         $search = get_object_vars(json_decode($_REQUEST['params']));
         foreach($search as $k=>$v)
@@ -366,7 +367,8 @@ abstract class controller extends base
             );
         }
         $params['limits'] = isset($_REQUEST['iDisplayStart']) ? $_REQUEST['iDisplayStart'].','.$_REQUEST['iDisplayLength'] : '';
-        $params['order'] = $_REQUEST['iSortCol_0'] ? $params['select'][$_REQUEST['iSortCol_0']] . ($_REQUEST['sSortDir_0'] ? ' ' . $_REQUEST['sSortDir_0'] : $params['order']) : $params['order'];
+        $preg_replace = $replace ? preg_replace("/.*(msrp|sale_price|savings_pc|savings).*/", "$1", $params['select'][$_REQUEST['iSortCol_0']]) : $params['select'][$_REQUEST['iSortCol_0']];
+        $params['order'] = $_REQUEST['iSortCol_0'] ? $preg_replace . ($_REQUEST['sSortDir_0'] ? ' ' . $_REQUEST['sSortDir_0'] : $params['order']) : $params['order'];
         $res = $this->model('default')->getFilteredData($params, $params['table']);
         if($print) {
             print_r($res);
