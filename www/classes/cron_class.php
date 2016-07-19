@@ -17,8 +17,8 @@ class cron_class extends base
             }
             if(preg_match("/Budget<\/b>:\s*.{1}([0-9]+)/", $item->description, $matches)) {
                 if($matches[1] >= 300) {
-                    if(!preg_match("/wp|wordpress|drupal|lavarel|yii|zend|magento|opencart|woo|woocommerce|codeigniter/", $item->title)) {
-                        if(!preg_match("/wp|wordpress|drupal|lavarel|yii|zend|magento|opencart|woo|woocommerce|codeigniter/", $item->description)) {
+                    if(!preg_match("/wp|wordpress|drupal|lavarel|yii|zend|magento|opencart|woo|woocommerce|codeigniter/i", $item->title)) {
+                        if(!preg_match("/wp|wordpress|drupal|lavarel|yii|zend|magento|opencart|woo|woocommerce|codeigniter/i", $item->description)) {
                             $res .= '<h3>' . $item->title . '</h3>' . "\n" . $item->description . "<br>" . '<a href="' . $item->guid . '">' . $item->guid . '</a>' ."<hr>\r\n";
                             $rows['guid'] = $item->guid;
                             $this->model('upwork')->insert($rows);
