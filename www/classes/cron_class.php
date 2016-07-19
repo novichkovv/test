@@ -21,13 +21,13 @@ class cron_class extends base
                         if(!preg_match("/wp|wordpress|drupal|lavarel|yii|zend|magento|opencart|woo|woocommerce|codeigniter/", $item->description)) {
                             $res .= '<h3>' . $item->title . '</h3>' . "\n" . $item->description . "<br>" . '<a href="' . $item->guid . '">' . $item->guid . '</a>' ."<hr>\r\n";
                             $rows['guid'] = $item->guid;
+                            $this->model('upwork')->insert($rows);
                         }
                     }
                 }
             }
         }
         if($res) {
-            $this->model('upwork')->insert($rows);
             $headers= "MIME-Version: 1.0\r\n";
             $headers .= "Content-type: text/html; charset=iso-8859-1\r\n"
                 ."From: webmaster@lonty.ru\r\n"
