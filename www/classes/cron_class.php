@@ -19,7 +19,7 @@ class cron_class extends base
                 if($matches[1] >= 300) {
                     if(!preg_match("/wp|wordpress|drupal|lavarel|yii|zend|magento|opencart|woo|woocommerce|codeigniter/", $item->title)) {
                         if(!preg_match("/wp|wordpress|drupal|lavarel|yii|zend|magento|opencart|woo|woocommerce|codeigniter/", $item->description)) {
-                            $res .= '<h3>' . $item->title . '</h3>' . "\n" . $item->description . "<br><hr>\n";
+                            $res .= '<h3>' . $item->title . '</h3>' . "\n" . $item->description . "<br>" . '<a href="' . $item->guid . '">' . $item->guid . '</a>' ."<hr>\r\n";
                             $rows['guid'] = $item->guid;
                         }
                     }
@@ -28,7 +28,13 @@ class cron_class extends base
         }
         if($res) {
             $this->model('upwork')->insert($rows);
-            mail('novichkovv@bk.ru', 'Upwork Feed', $res);
+            $headers= "MIME-Version: 1.0\r\n";
+            $headers .= "Content-type: text/html; charset=iso-8859-1\r\n"
+                ."From: webmaster@lonty.ru\r\n"
+                ."Reply-To: webmaster@lonty.ru\r\n"
+                ."X-Mailer: PHP/" . phpversion();
+            mail('novichkovv@bk.ru', 'Upwork Feed', $res, $headers);
+
         }
     }
 }
