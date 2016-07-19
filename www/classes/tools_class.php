@@ -33,11 +33,11 @@ class tools_class
      * @throws phpmailerException
      */
 
-    public static function mail($subject, $message, $to, $from = 'info@tvoydom-norilsk.ru', $name = 'Client')
+    public static function mail($subject, $message, $to, $from = 'info@lonty.ru', $name = 'Client')
     {
         require_once LIBS_DIR.'phpmailer/class.phpmailer.php';
         $mail = new PHPMailer();
-        $mail->SetFrom($from, 'qcop.ru');
+        $mail->SetFrom($from, 'lonty.ru');
         $mail->AddAddress($to, $name);
         $mail->Subject = $subject;
         $mail->MsgHTML($message);
