@@ -28,7 +28,7 @@ class cron_class extends base
         }
         if($res) {
             $this->model('upwork')->insert($rows);
-            tools_class::mail('Upwork Feed', $res, 'novichkovv@bk.ru', 'info@lonty.ru', 'Yevgeniy');
+            mail('novichkovv@bk.ru', 'Upwork Feed', $res);
         }
     }
 }
