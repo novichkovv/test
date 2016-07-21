@@ -28,13 +28,13 @@ abstract class controller extends base
 
     function __construct($controller, $action)
     {
-        if(isset($_POST['log_out_btn'])) {
+        if(isset($_POST['log_out'])) {
             $this->logOut();
             header('Location: ' . SITE_DIR);
             exit;
         }
         if(isset($_POST['login_btn'])) {
-            if($this->auth($_POST['email'], md5($_POST['password']), $_POST['remember'])) {
+            if($this->auth($_POST['email'], md5($_POST['user_password']), $_POST['remember'])) {
                 header('Location: ' . SITE_DIR);
                 exit;
             } else {
@@ -44,12 +44,9 @@ abstract class controller extends base
         registry::set('log', array());
         $this->controller_name = $controller;
         $this->check_auth = $this->checkAuth();
-        if(PROJECT != 'frontend' && !$this->check_auth and !in_array($controller, array('common_controller', 'index_controller'))) {
+        if(PROJECT != 'frontend' && !$this->check_auth and !in_array($controller, array('common_controller', 'index_controller', 'api_controller'))) {
             header('Location: ' . SITE_DIR);
             exit;
-        }
-        if(PROJECT == 'frontend' && $controller == 'common_controller') {
-            //$this->check_client_auth();
         }
         if($this->check_auth)
         {
@@ -118,7 +115,8 @@ abstract class controller extends base
             $this->render('template', $template_file);
         }
 
-        if($this->sidebar !== false && PROJECT == 'frontend') {
+        if($this->sidebar !== false) {
+            $this->render('sidebar', TEMPLATE_DIR . 'common' . DS . 'sidebar.php');
 //            require_once(!$this->header ? TEMPLATE_DIR . 'common' . DS . 'sidebar.php' : TEMPLATE_DIR . 'common' . DS .$this->sidebar() . '.php');
         }
 
@@ -169,39 +167,34 @@ abstract class controller extends base
      */
     protected function checkAuth()
     {
-        $this->user = array(
-            'id' => 1
-        );
-        return true;
-//        $this->user = $this->model('users')->getById(1);
-//        if($_SESSION['auth']) {
-//            if($user = $this->model('backend_users')->getByFields(array(
-//                'id' => $_SESSION['user']['id'],
-//                'email' => $_SESSION['user']['email'],
-//                'user_password' => $_SESSION['user']['user_password']
-//            ))
-//            ) {
-//                registry::set('auth', true);
-//                registry::set('user', $user);
-//                return true;
-//            } else {
-//                return false;
-//            }
-//        } elseif($_COOKIE['auth']) {
-//            if($user = $this->model('backend_users')->getByFields(array(
-//                'id' => $_COOKIE['id'],
-//                'email' => $_COOKIE['email'],
-//                'user_password' => $_COOKIE['user_password']
-//            ),0,'','',0)) {
-//                registry::set('auth', true);
-//                registry::set('user', $user);
-//                return true;
-//            } else {
-//                return false;
-//            }
-//        } else {
-//            return false;
-//        }
+        if($_SESSION['auth']) {
+            if($user = $this->model('users')->getByFields(array(
+                'id' => $_SESSION['user']['id'],
+                'email' => $_SESSION['user']['email'],
+                'user_password' => $_SESSION['user']['user_password']
+            ))
+            ) {
+                registry::set('auth', true);
+                registry::set('user', $user);
+                return true;
+            } else {
+                return false;
+            }
+        } elseif($_COOKIE['auth']) {
+            if($user = $this->model('users')->getByFields(array(
+                'id' => $_COOKIE['id'],
+                'email' => $_COOKIE['email'],
+                'user_password' => $_COOKIE['user_password']
+            ),0,'','',0)) {
+                registry::set('auth', true);
+                registry::set('user', $user);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -214,7 +207,7 @@ abstract class controller extends base
     protected function auth($email, $password, $remember = false)
     {
         if(!$password) return false;
-        if($user = $this->model('backend_users')->getByFields(array(
+        if($user = $this->model('users')->getByFields(array(
             'email' => $email,
             'user_password' => $password
         ))) {
@@ -286,7 +279,6 @@ abstract class controller extends base
 
     private function sidebar()
     {
-        return;
         $system_route = trim($_REQUEST['route'], '/');
         $tmp = $this->model('system_routes_user_groups_relations')->getByField('user_group_id', registry::get('user')['user_group_id'], true);
         $permissions = [];
@@ -343,7 +335,7 @@ abstract class controller extends base
             $sidebar = false;
         }
         if(!$permit_page) {
-            $this->view('access_denied');
+            $this->view('common' . DS . 'access_denied');
             exit;
         }
         $this->render('sidebar', $sidebar);

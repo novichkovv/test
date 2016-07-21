@@ -17,6 +17,7 @@
     <link href="<?php echo SITE_DIR; ?>assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="<?php echo SITE_DIR; ?>assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
     <link href="<?php echo SITE_DIR; ?>assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
 <!--    <link href="--><?php //echo SITE_DIR; ?><!--assets/global/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>-->
@@ -28,12 +29,19 @@
     <link href="<?php echo SITE_DIR; ?>assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
     <!-- END PAGE STYLES -->
     <!-- BEGIN THEME STYLES -->
+    <link href="<?php echo SITE_DIR; ?>assets/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" type="text/css"/>
+
     <link href="<?php echo SITE_DIR; ?>assets/global/css/components.min.css" rel="stylesheet" type="text/css"/>
     <link href="<?php echo SITE_DIR; ?>assets/global/css/plugins.min.css" rel="stylesheet" type="text/css"/>
     <link href="<?php echo SITE_DIR; ?>assets/global/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" type="text/css">
     <link href="<?php echo SITE_DIR; ?>assets/admin/layout/css/layout.min.css" rel="stylesheet" type="text/css"/>
     <link href="<?php echo SITE_DIR; ?>assets/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
     <link href="<?php echo SITE_DIR; ?>assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <?php if ($styles): ?>
+        <?php foreach ($styles as $style): ?>
+            <link href="<?php echo $style; ?>" rel="stylesheet" type="text/css"/>
+        <?php endforeach; ?>
+    <?php endif; ?>
     <link href="<?php echo SITE_DIR; ?>css/backend/style.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="favicon.ico"/>
@@ -83,7 +91,15 @@
     <script src="<?php echo SITE_DIR; ?>assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
     <script src="<?php echo SITE_DIR; ?>assets/admin/pages/scripts/index.js" type="text/javascript"></script>
     <script src="<?php echo SITE_DIR; ?>assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
+    <script src="<?php echo SITE_DIR; ?>assets/global/plugins/bootstrap-toastr/toastr.min.js" type="text/javascript"></script>
+    <script src="<?php echo SITE_DIR; ?>js/notifier.js" type="text/javascript"></script>
+    <?php if ($scripts): ?>
+        <?php foreach ($scripts as $script): ?>
+            <script src="<?php echo $script; ?>" type="text/javascript"></script>      
+        <?php endforeach; ?>
+    <?php endif; ?>
     <script src="<?php echo SITE_DIR; ?>js/script.js" type="text/javascript"></script>
+    
     <!-- END PAGE LEVEL SCRIPTS -->
 
     <!-- END JAVASCRIPTS -->

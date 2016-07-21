@@ -31,6 +31,21 @@ $(document).ready(function()
         autoclose: true
     });
 
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core componets
+        Layout.init(); // init layout
+        QuickSidebar.init() // init quick sidebar
+        Index.init();
+        Index.initDashboardDaterange();
+        Index.initJQVMAP(); // init index page's custom scripts
+        Index.initCalendar(); // init index page's custom scripts
+        Index.initCharts(); // init index page's custom scripts
+        Index.initChat();
+        Index.initMiniCharts();
+//        Index.initIntro();
+        Tasks.initDashboardWidget();
+    });
+
 });
 
 
@@ -263,7 +278,9 @@ function ajax_datatable(id, display_records, options)
         oTable.fnFilter();
     });
 
-    $(".range-input-1, .range-input-2").datepicker();
+    $(".range-input-1, .range-input-2").datepicker({
+        format: 'yyyy-mm-dd'
+    });
 
     $('#' + id + ' .filter-range, .filter-range[data-id="' + id + '"]').change(function() {
         var $cont = $(this).closest('.date-range');

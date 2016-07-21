@@ -8,6 +8,7 @@
 class base
 {
     private $api_instance;
+    private $tools_instance;
 
     /**
      * @param $model
@@ -42,7 +43,7 @@ class base
      * @param string $mode
      */
 
-    protected function writeLog($file, $value, $mode = 'a+') {
+    public function writeLog($file, $value, $mode = 'a+') {
         $f = fopen(ROOT_DIR . 'tmp' . DS . 'logs' . DS . $file . '.log', $mode);
         fwrite($f, date('Y-m-d H:i:s') . ' - ' .print_r($value, true) . "\n");
         fclose($f);
@@ -93,8 +94,16 @@ class base
     public function api()
     {
         if(!$this->api_instance) {
-            $this->api_instance = new feedly_api_class(registry::get('user')['id']);
+            $this->api_instance = new api_class();
         }
         return $this->api_instance;
+    }
+
+    public function tools()
+    {
+        if(!$this->tools_instance) {
+            $this->tools_instance = new tools_class();
+        }
+        return $this->tools_instance;
     }
 }

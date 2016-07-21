@@ -9,20 +9,18 @@ class index_controller extends controller
 {
     public function index()
     {
-        $this->render('breadcrumbs', array(
-            array(
-                'name' => 'Home'
-            ),
-        ));
+        $this->addScript(SITE_DIR . 'assets/global/plugins/bootstrap-summernote/summernote.min.js');
+        $this->addStyle(SITE_DIR . 'assets/global/plugins/bootstrap-summernote/summernote.css');
         $this->view('index' . DS . 'index');
+    }
+
+    public function index_ajax()
+    {
+
     }
 
     public function index_na()
     {
-        $this->sidebar = false;
-        $this->header = false;
-        $this->footer = false;
-        $this->addStyle('backend/theme/login_form');
-        $this->view('index' . DS . 'login_form');
+
     }
 }
