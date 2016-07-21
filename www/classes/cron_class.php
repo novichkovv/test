@@ -17,7 +17,7 @@ class cron_class extends base
             }
             if(preg_match("/Budget<\/b>:\s*.{1}([0-9]+)/", $item->description, $matches)) {
                 if($matches[1] >= 300) {
-                    $reg_exp = "/(wp|wordpress|drupal|laravel|yii|zend|magento|opencart|woo|woocommerce|codeigniter|joomla)/i";
+                    $reg_exp = "/(wp|wordpress|drupal|laravel|yii|zend|magento|opencart|woo|woocommerce|codeigniter|joomla|pakistan)/i";
                     if(!preg_match($reg_exp, $item->title)) {
                         if(!preg_match($reg_exp, $item->description)) {
                             $res .= '<h3>' . $item->title . '</h3>' . "\n" . $item->description . "<br>" . '<a href="' . $item->guid . '">' . $item->guid . '</a>' ."<hr>\r\n";
