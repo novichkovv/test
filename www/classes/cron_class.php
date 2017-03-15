@@ -11,16 +11,22 @@ class cron_class extends base
         $rows = [];
         echo 7;
         $text = file_get_contents('https://www.upwork.com/ab/feed/topics/rss?securityToken=f5b4a3e2c9db58a24f985e078b7b90f2b80a98ce4f982d9a371757afcbd2fbb27e6e7a7b2276eb666f63c230509e66f6bb8fb771e86444e62da3decb785cc5e3&userUid=540085637412036608');
+        echo $text;
         $xml = new SimpleXMLElement($text);
         foreach ($xml->channel->item as $item) {
             if(isset($latest["" . $item->guid])) {
                 continue;
             }
+            echo 8;
             if(preg_match("/Budget<\/b>:\s*.{1}([0-9,]+)/", $item->description, $matches)) {
+                echo $item->description;
                 if(str_replace(',','', $matches[1]) >= 200) {
+                    echo 9;
                     $reg_exp = "/(wp|wordpress|drupal|laravel|yii|zend|magento|opencart|woo|woocommerce|codeigniter|joomla|pakistan)/i";
                     if(!preg_match($reg_exp, $item->title)) {
+                        echo 10;
                         if(!preg_match($reg_exp, $item->description)) {
+                            echo 11;
                             $res .= '<h3>' . $item->title . '</h3>' . "\n" . $item->description . "<br>" . '<a href="' . $item->guid . '">' . $item->guid . '</a>' ."<hr>\r\n";
                             $rows['guid'] = $item->guid;
                             $this->model('upwork')->insert($rows);
