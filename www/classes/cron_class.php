@@ -50,7 +50,7 @@ class cron_class extends base
             ."From: webmaster@lonty.ru\r\n"
             ."Reply-To: webmaster@lonty.ru\r\n"
             ."X-Mailer: PHP/" . phpversion();
-        mail('novichkovv@bk.ru', 'Upwork Feed', $res, $headers);
+        var_dump(mail('novichkovv@bk.ru', 'Upwork Feed', $res, $headers));
     }
 }
 //<?php
