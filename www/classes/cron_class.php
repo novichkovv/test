@@ -36,21 +36,22 @@ class cron_class extends base
             }
         }
         print_r($res);
-        if($res) {
-            $headers= "MIME-Version: 1.0\r\n";
-            $headers .= "Content-type: text/html; charset=iso-8859-1\r\n"
-                ."From: webmaster@lonty.ru\r\n"
-                ."Reply-To: webmaster@lonty.ru\r\n"
-                ."X-Mailer: PHP/" . phpversion();
-            mail('novichkovv@bk.ru', 'Upwork Feed', $res, $headers);
-
-        }
-        $headers= "MIME-Version: 1.0\r\n";
-        $headers .= "Content-type: text/html; charset=iso-8859-1\r\n"
-            ."From: webmaster@lonty.ru\r\n"
-            ."Reply-To: webmaster@lonty.ru\r\n"
-            ."X-Mailer: PHP/" . phpversion();
-        var_dump(mail('novichkovv@bk.ru', 'Upwork Feed', $res, $headers));
+//        if($res) {
+//            $headers= "MIME-Version: 1.0\r\n";
+//            $headers .= "Content-type: text/html; charset=iso-8859-1\r\n"
+//                ."From: webmaster@lonty.ru\r\n"
+//                ."Reply-To: webmaster@lonty.ru\r\n"
+//                ."X-Mailer: PHP/" . phpversion();
+//            mail('novichkovv@bk.ru', 'Upwork Feed', $res, $headers);
+//
+//        }
+//        $headers= "MIME-Version: 1.0\r\n";
+//        $headers .= "Content-type: text/html; charset=iso-8859-1\r\n"
+//            ."From: webmaster@lonty.ru\r\n"
+//            ."Reply-To: webmaster@lonty.ru\r\n"
+//            ."X-Mailer: PHP/" . phpversion();
+//        var_dump(mail('novichkovv@bk.ru', 'Upwork Feed', $res, $headers));
+        tools_class::mail('Upwork Feed', $res, 'novichkovv@bk.ru', 'info@tolyk.ru','Евгений');
     }
 }
 //<?php

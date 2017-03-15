@@ -37,7 +37,7 @@ class tools_class
     {
         require_once LIBS_DIR.'phpmailer/class.phpmailer.php';
         $mail = new PHPMailer();
-        $mail->SetFrom($from, 'lonty.ru');
+        $mail->SetFrom($from, 'tolyk.ru');
         $mail->AddAddress($to, $name);
         $mail->Subject = $subject;
         $mail->MsgHTML($message);
