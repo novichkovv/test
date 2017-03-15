@@ -3,6 +3,9 @@ class cron_class extends base
 {
     public function upwork()
     {
+        echo mail('novichkovv@bk.ru','Upwork Feed', 'test');
+        echo mail('enov300@gmail.ru','Upwork Feed', 'test');
+        var_dump(tools_class::mail('Upwork Feed', 'test', 'enov300@gmail.ru', 'info@tolyk.ru','Евгений'));
         $latest = [];
         foreach ($this->model('upwork')->getAll('id DESC', 20) as $v) {
             $latest[$v['guid']] = $v;
