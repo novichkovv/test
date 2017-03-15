@@ -15,7 +15,6 @@ class cron_class extends base
             if(isset($latest["" . $item->guid])) {
                 continue;
             }
-            echo $item->description;
             if(preg_match("/Budget<\/b>:\s*.{1}([0-9,]+)/", $item->description, $matches)) {
                 if(str_replace(',','', $matches[1]) >= 200) {
                     $reg_exp = "/(wp|wordpress|drupal|laravel|yii|zend|magento|opencart|woo|woocommerce|codeigniter|joomla|pakistan)/i";
@@ -29,6 +28,7 @@ class cron_class extends base
                 }
             }
         }
+        print_r($res);
         if($res) {
             $headers= "MIME-Version: 1.0\r\n";
             $headers .= "Content-type: text/html; charset=iso-8859-1\r\n"
@@ -38,6 +38,12 @@ class cron_class extends base
             mail('novichkovv@bk.ru', 'Upwork Feed', $res, $headers);
 
         }
+        $headers= "MIME-Version: 1.0\r\n";
+        $headers .= "Content-type: text/html; charset=iso-8859-1\r\n"
+            ."From: webmaster@lonty.ru\r\n"
+            ."Reply-To: webmaster@lonty.ru\r\n"
+            ."X-Mailer: PHP/" . phpversion();
+        mail('novichkovv@bk.ru', 'Upwork Feed', $res, $headers);
     }
 }
 //<?php
